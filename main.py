@@ -32,20 +32,34 @@ def main():
     }
     while True: 
         prompt = getinput()
-        if prompt == "off": 
+        if prompt == "off":  # shut off the machine
             print("Goodbye")
             exit()
-        elif prompt == "report":
+        elif prompt == "report":  # print report
             print("Water: " + str(water) + "ml" + "\nMilk: " + str(milk) + "ml" + "\nCoffee: " + str(coffee) + "g" + "\nMoney: $" + str(money))
-        else: 
-            if checkresources(MENU[prompt]["ingredients"], water, milk, coffee) == True:
-                # ask for money
-                
-            else: 
-                # tell them what is insufficient
+        else:  # make coffee
+            # check if there are enough resources
+            if checkresources(MENU[prompt]["ingredients"], water, milk, coffee) == True:  
+                totalInput = getmoney()
+                if totalInput < MENU[prompt]["cost"]:
+                    print("Sorry that's not enough money. Money refunded")
+                else:
+                    if totalInput > MENU[prompt]["cost"]:
+                        print("Here is $" + str(round(totalInput - MENU[prompt]["cost"],2)) + " in change")
+                    print("Here is your " + prompt + ". Enjoy!")
+                    water -= MENU[prompt]["ingredients"]["water"]
+                    milk -= MENU[prompt]["ingredients"]["milk"]
+                    coffee -= MENU[prompt]["ingredients"]["coffee"]
+                    money += MENU[prompt]["cost"]
 
 def checkresources(ingredients, water, milk, coffee):
-    if ingredients["water"] < water and ingredients["milk"] < milk and ingredients["coffee"] < coffee: 
+    if ingredients["water"] > water:
+        print("Sorry there is not enough water")
+    elif ingredients["milk"] > milk:
+        print("Sorry there is not enough milk")
+    elif ingredients["coffee"] > coffee: 
+        print("Sorry there is not enough coffee")
+    else: 
         return True
     return False
     
@@ -60,5 +74,36 @@ def getinput():
         answer = getinput()
     return answer
 
+def getmoney(): 
+    while True: 
+        try: 
+            quarters = int(input("How many quarters?: "))
+            break
+        except: 
+            print("Please enter a valid input")
+            continue
+    while True: 
+        try: 
+            dimes = int(input("How many dimes?: "))
+            break
+        except: 
+            print("Please enter a valid input")
+            continue 
+    while True:
+        try: 
+            nickels = int(input("How many nickels?: "))
+            break
+        except: 
+            print("Please enter a valid input")
+            continue
+    while True:
+        try: 
+            pennies = int(input("How many pennies?: "))
+            break
+        except: 
+            print("Please enter a valid input")
+            continue
+
+    return quarters * 0.25 + dimes * 0.1 + nickels * 0.05 + pennies * 0.01
 if __name__ == "__main__":
     main()
