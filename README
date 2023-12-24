@@ -1,0 +1,19 @@
+# Coin-Operated Coffee Machine
+
+## Description
+This project aims to develop a coin-operated coffee machine that handles user input and provides a seamless coffee ordering experience.
+
+## Features
+- Accepts various denominations of coins as payment.
+- Allows users to select different types of coffee.
+- Dispenses the selected coffee and returns change if necessary.
+
+# Design Decisions: 
+- First created ability to operate the machine
+- main was too complicated and it felt like CoffeeMachine needed to be it's own class rather than a bunch of functions
+- created CoffeeMachine Object
+
+# Upcoming Design Decisions: 
+- Handle all possible errors
+- find closest result and ask if they meant that answer
+- create interface
